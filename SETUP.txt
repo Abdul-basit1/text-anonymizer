@@ -1,0 +1,142 @@
+========================================================
+       TEXT ANONYMIZER - SETUP GUIDE
+========================================================
+
+Automatic text anonymization using BERT NER (Named Entity Recognition).
+Detects and masks names, locations, dates, emails, and organizations.
+
+
+PREREQUISITES
+------------------------------
+- Python 3.9 or higher
+- pip (comes with Python)
+- Internet connection (to download the NER model on first run)
+
+
+========================================================
+SETUP ON WINDOWS
+========================================================
+
+Step 1: Install Python
+   Download and install from https://www.python.org/downloads/
+   IMPORTANT: Check "Add Python to PATH" during installation.
+
+   Verify:
+      python --version
+
+Step 2: Open Command Prompt and navigate to the project folder
+      cd C:\path\to\text-anonymizer
+
+Step 3: Create a virtual environment
+      python -m venv venv
+
+Step 4: Activate the virtual environment
+      venv\Scripts\activate
+
+Step 5: Install dependencies
+      pip install torch transformers scikit-learn pandas numpy spacy seqeval tqdm matplotlib
+
+Step 6: Download the spaCy English model
+      python -m spacy download en_core_web_sm
+
+Step 7: Run the project
+      python anonymizer.py
+      python evaluation.py
+      python conll_evaluation.py
+      python visualizations.py
+
+
+========================================================
+SETUP ON UBUNTU / LINUX
+========================================================
+
+Step 1: Install Python and pip
+      sudo apt update
+      sudo apt install python3 python3-pip python3-venv -y
+
+   Verify:
+      python3 --version
+
+Step 2: Navigate to the project folder
+      cd /path/to/text-anonymizer
+
+Step 3: Create a virtual environment
+      python3 -m venv venv
+
+Step 4: Activate the virtual environment
+      source venv/bin/activate
+
+Step 5: Install dependencies
+      pip install torch transformers scikit-learn pandas numpy spacy seqeval tqdm matplotlib
+
+Step 6: Download the spaCy English model
+      python -m spacy download en_core_web_sm
+
+Step 7: Run the project
+      python anonymizer.py
+      python evaluation.py
+      python conll_evaluation.py
+      python visualizations.py
+
+
+========================================================
+SETUP ON macOS
+========================================================
+
+Step 1: Install Python
+   Python 3 is usually pre-installed. Verify with:
+      python3 --version
+
+   If not installed, download from https://www.python.org/downloads/
+   Or install via Homebrew:
+      brew install python
+
+Step 2-7: Follow the same steps as Ubuntu / Linux above.
+
+
+========================================================
+WHAT EACH SCRIPT DOES
+========================================================
+
+  anonymizer.py        - Main pipeline, runs anonymization on sample texts
+  evaluation.py        - Calculates Precision, Recall, and F1-Score on test cases
+  conll_evaluation.py  - Evaluates the model on CoNLL-2003 style NER benchmark data
+  visualizations.py    - Generates comparison charts and saves them as PNG images
+
+
+========================================================
+NOTES
+========================================================
+
+- The first run will download the dslim/bert-base-NER model (~400 MB).
+  This only happens once.
+
+- The "Some weights not used" warning from BERT is normal and expected.
+  It can be safely ignored.
+
+- On x86_64 macOS, PyTorch versions above 2.2.2 are not available.
+  If you get a PyTorch version error, install compatible versions:
+      pip install torch==2.2.2 transformers==4.45.2
+
+- visualizations.py saves output images (anonymization_results.png,
+  error_analysis.png) in the project folder.
+
+
+========================================================
+TROUBLESHOOTING
+========================================================
+
+Problem:  ModuleNotFoundError: No module named 'torch'
+Solution: pip install torch  (inside the activated venv)
+
+Problem:  PyTorch >= 2.4 is required but found 2.2.2
+Solution: pip install transformers==4.45.2
+
+Problem:  No module named 'spacy'
+Solution: pip install spacy
+
+Problem:  Can't find model 'en_core_web_sm'
+Solution: python -m spacy download en_core_web_sm
+
+Problem:  Charts not showing
+Solution: pip install matplotlib
